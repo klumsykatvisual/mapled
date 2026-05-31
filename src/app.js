@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const MODEL_PATH = './gltf/3DstageFFtest.glb';
-const TEXTURE_FOLDER = './gltf/texture/';
+const MODEL_PATH = './src/gltf/3DstageFFtest.glb';
+const TEXTURE_FOLDER = './src/gltf/texture/';
 
 // =============================================================
 //  CONFIG: YOUR FILE NAMES
