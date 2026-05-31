@@ -1,0 +1,294 @@
+:root {
+    --bg-canvas: #111113;
+    --accent: #2563eb;
+    --text-primary: #f3f4f6;
+    /* 70% transparent glass color setup with deep blur effects */
+    --glass-bg: rgba(24, 24, 28, 0.7);
+    --glass-card: rgba(36, 36, 41, 0.7);
+    --glass-hover: rgba(44, 44, 50, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    height: 100vh;
+    width: 100vw;
+}
+
+#canvas-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+/* Floating Responsive Left Sidebar Element (Desktop / Landscape) */
+.floating-card {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    bottom: 20px;
+    width: 340px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transform: translateX(-400px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.floating-card.show {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+h2 {
+    margin: 0 0 6px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.2);
+    color: #60a5fa;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+/* Scrollable Texture Items Feed Frame */
+#texture-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 16px;
+    margin: 0;
+    list-style: none;
+}
+
+/* Hidden Scrollbar track styling for a sleeker presentation */
+#texture-list::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+#texture-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.texture-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 12px;
+    background-color: var(--glass-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.texture-item:hover {
+    transform: translateY(-2px);
+    background-color: var(--glass-hover);
+    border-color: var(--accent);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.texture-item img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 14px;
+    background-color: #000;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.texture-item span {
+    font-size: 0.88rem;
+    font-weight: 500;
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+/* UI Menu Buttons Controls */
+.floating-trigger {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 5;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+}
+
+.floating-trigger:hover {
+    background: var(--glass-hover);
+    color: var(--accent);
+}
+
+.close-trigger {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-trigger:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+/* Loading Overlay Configuration screen */
+#loading-screen {
+    position: absolute;
+    inset: 0;
+    background-color: var(--bg-canvas);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.4s ease;
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #2d2d35;
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* =============================================================
+   VERTICAL PHONES & PORTRAIT MOBILE SMARTPHONES MEDIA QUERY
+   ============================================================= */
+@media (max-width: 480px) and (orientation: portrait) {
+    /* Slide up from the bottom instead of sliding from the left */
+    .floating-card {
+        top: auto;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+        height: 180px;
+        transform: translateY(250px);
+    }
+
+    .floating-card.show {
+        transform: translateY(0);
+    }
+
+    /* Keep menu trigger in the bottom left corner when closed */
+    .floating-trigger {
+        top: auto;
+        bottom: 12px;
+        left: 12px;
+    }
+
+    /* Flatten the header out to maximize image space */
+    .sidebar-header {
+        padding: 10px 14px;
+        align-items: center;
+    }
+
+    .sidebar-header h2 {
+        font-size: 1rem;
+        margin: 0 8px 0 0;
+        display: inline-block;
+    }
+
+    .header-main {
+        display: flex;
+        align-items: center;
+    }
+
+    .badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+
+    /* Transform the list view into a horizontal scrolling row layout */
+    #texture-list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 12px;
+        gap: 12px;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Style the list item blocks like dynamic square option cards */
+    .texture-item {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 90px;
+        max-width: 90px;
+        height: 95px;
+        padding: 6px;
+        margin-bottom: 0;
+        box-sizing: border-box;
+    }
+
+    .texture-item img {
+        width: 44px;
+        height: 44px;
+        margin-right: 0;
+        margin-bottom: 6px;
+    }
+
+    /* Wrap long names inside the mobile grid cards neatly */
+    .texture-item span {
+        font-size: 0.72rem;
+        text-align: center;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        width: 100%;
+    }
+}
