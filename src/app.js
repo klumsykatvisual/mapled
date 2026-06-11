@@ -2,18 +2,18 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const MODEL_PATH = './src/gltf/3DstageFFtest.glb';
+const MODEL_PATH = './src/gltf/2026_ShiningShanghai_3DBase.glb';
 const TEXTURE_FOLDER = './src/gltf/texture/';
 
 // =============================================================
 //  CONFIG: YOUR FILE NAMES
 // =============================================================
 const TEXTURE_FILES = [
-    "1.FinalNEUV0755-Copy.png",
-    "2.Hue1UV0755.png",
-    "3.Hue2EUV0755.png",
-    "4.HueInNEUV0755.png",
-    "5.InvertfinalNE5.png"
+    "1.Black&White.png",
+    "2.Blue.png",
+    "3.SunSet.png",
+    "4.DarkCyan.png",
+    "5.Thay Ma Gom.png"
 ];
 // =============================================================
 
