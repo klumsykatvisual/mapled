@@ -144,7 +144,7 @@ function applyNewTexture(url) {
 
         // Helper logic to find and swap specific asset mapping
         const checkAndUpdateMaterial = (mat) => {
-            if (mat && mat.name === 'MAP LED') {
+            if (mat && mat.name === 'MAPLED') {
                 mat.map = texture;
                 mat.needsUpdate = true;
                 materialFound = true;
